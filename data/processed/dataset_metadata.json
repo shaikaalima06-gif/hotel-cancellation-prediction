@@ -1,0 +1,63 @@
+{
+  "dataset": "hotel_bookings.csv",
+  "dataset_sha256": "7c2ae42a7353905ea136e5c2287f17c92c5435826598bfbb8491c6f0c7b1fc06",
+  "rows": 119390,
+  "columns": 32,
+  "target": "is_canceled",
+  "target_distribution": {
+    "0": 75166,
+    "1": 44224
+  },
+  "test_size": 0.2,
+  "random_state": 42,
+  "dropped_leakage_columns": [
+    "reservation_status",
+    "reservation_status_date"
+  ],
+  "feature_columns": [
+    "hotel",
+    "lead_time",
+    "arrival_date_year",
+    "arrival_date_month",
+    "arrival_date_week_number",
+    "arrival_date_day_of_month",
+    "stays_in_weekend_nights",
+    "stays_in_week_nights",
+    "adults",
+    "children",
+    "babies",
+    "meal",
+    "country",
+    "market_segment",
+    "distribution_channel",
+    "is_repeated_guest",
+    "previous_cancellations",
+    "previous_bookings_not_canceled",
+    "reserved_room_type",
+    "assigned_room_type",
+    "booking_changes",
+    "deposit_type",
+    "agent",
+    "company",
+    "days_in_waiting_list",
+    "customer_type",
+    "adr",
+    "required_car_parking_spaces",
+    "total_of_special_requests"
+  ],
+  "train_rows": 95512,
+  "test_rows": 23878,
+  "processed_train_shape": [
+    95512,
+    252
+  ],
+  "processed_test_shape": [
+    23878,
+    252
+  ],
+  "missing_values": {
+    "country": 488,
+    "agent": 16340,
+    "company": 112593
+  }
+}

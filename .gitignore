@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# MLflow local database/runtime
+mlflow.db
+mlruns/
+
+# Generated ML artifacts
+models/*.joblib
+models/*.pkl
+models/*.json
+outputs/*.csv
+outputs/*.json
+outputs/*.png
+logs/*.log
+artifacts/*
+
+# Generated processed arrays/files
+data/processed/*.npy
+data/processed/*.csv
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/

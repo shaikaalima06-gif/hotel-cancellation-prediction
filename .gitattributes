@@ -1,0 +1,5 @@
+*.csv text
+*.json text
+*.py text
+*.md text
+*.ipynb text
