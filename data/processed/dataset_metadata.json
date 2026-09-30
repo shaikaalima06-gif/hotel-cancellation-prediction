@@ -1,0 +1,18 @@
+{
+    "dataset": "Hotel Booking Cancellation",
+    "target_column": "is_canceled",
+    "original_rows": 119390,
+    "processed_rows": 87396,
+    "number_of_features": 248,
+    "train_rows": 69916,
+    "test_rows": 17480,
+    "test_size": 0.2,
+    "random_state": 42,
+    "stratified_split": true,
+    "outlier_method": "IQR clipping",
+    "outlier_column": "adr",
+    "removed_leakage_columns": [
+        "reservation_status",
+        "reservation_status_date"
+    ]
+}
