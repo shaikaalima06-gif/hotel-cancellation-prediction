@@ -98,7 +98,14 @@ def main():
                             pass
 
             mlflow.log_metrics(metrics)
-            mlflow.sklearn.log_model(pipe, artifact_path="model")
+            mlflow.sklearn.log_model(
+                pipe,
+                name="model",
+                skops_trusted_types=[
+                    "numpy.dtype",
+                    "sklearn.tree._tree.Tree"
+                ]
+            )
             mlflow.log_artifact(str(ROOT / "data" / "processed" / "dataset_metadata.json"))
 
             print(f"{name}: {json.dumps(metrics)} | run_id={run.info.run_id}")
