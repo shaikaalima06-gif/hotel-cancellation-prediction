@@ -28,3 +28,4 @@ mlruns/
 
 # Logs
 logs/*.log
+data/test/
