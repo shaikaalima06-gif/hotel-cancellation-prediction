@@ -1,0 +1,79 @@
+
+name: Hotel Cancellation Prediction - Lab 8 CI
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+jobs:
+  hotel-cancellation-ci:
+    name: Run MLOps CI Pipeline
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Get project source code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Step 2: Install Python
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+          cache-dependency-path: requirements.txt
+
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # Step 4: Check Python syntax
+      - name: Check Python syntax
+        run: |
+          python -m compileall -q src pipelines
+
+      # Step 5: Validate dataset
+      - name: Validate hotel dataset
+        run: |
+          python src/validate_data.py
+
+      # Step 6: Preprocess dataset
+      - name: Run preprocessing
+        run: |
+          python src/preprocess.py
+
+      # Step 7: Train model
+      - name: Train Random Forest model
+        run: |
+          python src/train.py
+
+      # Step 8: Evaluate model
+      - name: Evaluate model
+        run: |
+          python src/evaluate.py
+
+      # Step 9: Check reproducibility
+      - name: Validate reproducibility
+        run: |
+          python src/validate_reproducibility.py
+
+      # Step 10: Upload generated reports
+      - name: Upload CI reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: hotel-cancellation-ci-reports
+          path: |
+            outputs/
+            models/model_metadata.json
+            data/processed/dataset_metadata.json
+          if-no-files-found: warn
