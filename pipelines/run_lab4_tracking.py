@@ -64,8 +64,10 @@ def main():
             random_state=RANDOM_STATE, n_jobs=-1
         ),
     }
-
+        
+    comparison_results = []
     for name, estimator in models.items():
+        
         scale = name == "LogisticRegression"
         pipe = Pipeline([
             ("preprocessor", make_preprocessor(X_train, scale_numeric=scale)),
@@ -84,6 +86,10 @@ def main():
                 "f1": f1_score(y_test, pred, zero_division=0),
                 "roc_auc": roc_auc_score(y_test, proba),
             }
+            comparison_results.append({
+                "model": name,
+                **{key: float(value) for key, value in metrics.items()}
+            })
 
             mlflow.log_param("model", name)
             mlflow.log_param("test_size", 0.20)
@@ -110,7 +116,14 @@ def main():
 
             print(f"{name}: {json.dumps(metrics)} | run_id={run.info.run_id}")
 
-    print("\nMLflow tracking completed.")
+    comparison_file = ROOT / "outputs" / "model_comparison.json"
+    comparison_file.parent.mkdir(parents=True, exist_ok=True)
+
+    with open(comparison_file, "w", encoding="utf-8") as f:
+        json.dump(comparison_results, f, indent=4)
+
+    print(f"\nModel comparison saved to: {comparison_file}")
+    print("MLflow tracking completed.")
 
 
 if __name__ == "__main__":
